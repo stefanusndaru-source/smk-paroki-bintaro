@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pendataan SMK – Paroki Bintaro 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── KONFIGURASI: ganti SCRIPT_URL di bagian <script> di bawah ── */
+:root{--gold:#b8972e;--gold-light:#d4af37;--gold-pale:#f9f3e3;--deep:#1a1209;--mid:#3d2e0f;--muted:#7a6540;--border:#d9c89a;--bg:#faf7f0;--white:#fff;--red:#9b2c2c;--green:#276749;--input-bg:#fffdf7;--navy:#1a2744;--navy2:#243461;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--deep);min-height:100vh;}
+.header{background:linear-gradient(160deg,#1a1209 0%,#3d2311 60%,#5a3418 100%);color:#fff;text-align:center;padding:40px 24px 32px;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(184,151,46,.06) 20px,rgba(184,151,46,.06) 21px);}
+.hcross{font-size:28px;color:var(--gold-light);letter-spacing:12px;position:relative;margin-bottom:8px;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(15px,2.8vw,21px);line-height:1.4;position:relative;max-width:680px;margin:0 auto 10px;}
+.hdiv{width:70px;height:2px;background:var(--gold-light);margin:10px auto;}
+.header p{font-size:13px;color:#d4c4a0;max-width:560px;margin:0 auto;line-height:1.7;font-style:italic;position:relative;}
+.form-wrap{max-width:720px;margin:24px auto 100px;padding:0 16px;}
+.form-card{background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(26,18,9,.11);overflow:hidden;}
+.sec-label{background:var(--gold-pale);border-left:4px solid var(--gold);padding:10px 24px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.fgrp{padding:22px 28px;}
+.field{margin-bottom:20px;}
+.field:last-child{margin-bottom:0;}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--mid);margin-bottom:6px;}
+.num{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;background:var(--gold);color:#fff;border-radius:50%;font-size:10px;font-weight:700;margin-right:7px;}
+.req{color:var(--red);margin-left:2px;}
+.field select,.field input[type=text],.field input[type=number],.field textarea{width:100%;background:var(--input-bg);border:1.5px solid var(--border);border-radius:8px;padding:10px 13px;font-family:'Source Sans 3',sans-serif;font-size:13.5px;color:var(--deep);transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none;outline:none;}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23b8972e' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:36px;cursor:pointer;}
+.field textarea{resize:vertical;min-height:76px;line-height:1.6;}
+.field select:focus,.field input:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,151,46,.14);}
+.readonly-f{background:#f5f0e8!important;color:#7a6540!important;cursor:default!important;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.sep{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+.radio-grp{display:flex;flex-wrap:wrap;gap:9px;}
+.radio-grp label{display:flex;align-items:center;gap:7px;background:var(--input-bg);border:1.5px solid var(--border);border-radius:8px;padding:9px 15px;font-size:13px;font-weight:400;color:var(--mid);cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:0;}
+.radio-grp input[type=radio]{display:none;}
+.radio-grp input[type=radio]:checked+span{font-weight:600;color:var(--gold);}
+.radio-grp label:has(input:checked){border-color:var(--gold);background:var(--gold-pale);}
+.note-box{margin:0 28px 22px;background:var(--gold-pale);border:1px dashed var(--gold);border-radius:8px;padding:11px 15px;font-size:12px;color:var(--muted);line-height:1.6;}
+.note-box strong{color:var(--gold);}
+.submit-wrap{padding:6px 28px 28px;text-align:center;}
+.btn-kirim{background:linear-gradient(135deg,var(--gold) 0%,#8b6914 100%);color:#fff;border:none;padding:14px 52px;border-radius:50px;font-family:'Source Sans 3',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 18px rgba(184,151,46,.32);transition:transform .15s,box-shadow .15s;display:inline-flex;align-items:center;gap:10px;}
+.btn-kirim:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(184,151,46,.42);}
+.btn-kirim:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+/* Loading spinner */
+.spinner{width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+.btn-kirim.loading .spinner{display:block;}
+.btn-kirim.loading .btn-txt{display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* Success screen */
+#success-screen{display:none;text-align:center;padding:48px 28px;}
+#success-screen.show{display:block;}
+.ok-icon{font-size:56px;margin-bottom:16px;}
+#success-screen h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--mid);margin-bottom:10px;}
+#success-screen p{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
+.ref-box{background:var(--gold-pale);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:22px;}
+.ref-no{font-size:22px;font-weight:700;color:var(--gold);display:block;margin-bottom:4px;}
+.ref-box small{font-size:11.5px;color:var(--muted);}
+.btn-new{background:var(--gold-pale);border:1.5px solid var(--gold);color:var(--gold);padding:11px 30px;border-radius:50px;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+/* Error banner */
+.err-banner{display:none;background:#fff5f5;border:1px solid #feb2b2;border-radius:8px;padding:12px 16px;margin:0 28px 16px;font-size:13px;color:var(--red);line-height:1.6;}
+.err-banner.show{display:block;}
+/* Admin button */
+.admin-footer{position:fixed;bottom:22px;right:22px;z-index:90;}
+.btn-admin-link{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#fff;padding:11px 20px;border-radius:50px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);border:none;font-family:'Source Sans 3',sans-serif;cursor:pointer;box-shadow:0 4px 18px rgba(26,39,68,.35);transition:transform .15s,box-shadow .15s;}
+.btn-admin-link:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,39,68,.45);}
+.adm-dot{width:8px;height:8px;border-radius:50%;background:#48bb78;box-shadow:0 0 0 2px rgba(72,187,120,.3);}
+
+/* ════ ADMIN PANEL ════ */
+#admin-panel{display:none;min-height:100vh;background:#f0f4ff;}
+#admin-panel.show{display:block;}
+.admin-topbar{background:var(--navy);color:#fff;padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.2);}
+.admin-brand{font-family:'Playfair Display',serif;font-size:16px;display:flex;align-items:center;gap:10px;}
+.admin-brand small{font-family:'Source Sans 3',sans-serif;font-size:11px;color:#8899cc;font-weight:400;}
+.btn-logout{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 14px;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;}
+.btn-logout:hover{background:rgba(255,255,255,.22);}
+.admin-body{max-width:1120px;margin:0 auto;padding:24px 20px 60px;}
+.admin-toprow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;}
+.admin-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--navy);}
+.admin-title small{font-family:'Source Sans 3',sans-serif;font-size:12px;color:#6b7494;display:block;font-weight:400;margin-top:2px;}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-csv{background:var(--green);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
+.btn-csv:hover{opacity:.85;}
+.btn-refresh{background:var(--navy);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
+.btn-refresh:hover{opacity:.85;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px;}
+.stat-box{background:#fff;border:1px solid #dde2f0;border-radius:10px;padding:14px 16px;text-align:center;}
+.stat-num{font-size:26px;font-weight:700;color:var(--navy);}
+.stat-lbl{font-size:11.5px;color:#6b7494;margin-top:2px;}
+.search-bar{margin-bottom:14px;}
+.search-bar input{width:100%;border:1.5px solid #dde2f0;border-radius:8px;padding:10px 14px 10px 38px;font-family:'Source Sans 3',sans-serif;font-size:13.5px;outline:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%231a2744' stroke-width='2'%3E%3Ccircle cx='7' cy='7' r='5'/%3E%3Cline x1='11' y1='11' x2='15' y2='15'/%3E%3C/svg%3E") no-repeat 12px center;}
+.search-bar input:focus{border-color:var(--navy);outline:none;}
+.table-wrap{overflow-x:auto;background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(26,36,68,.08);}
+.data-table{width:100%;border-collapse:collapse;font-size:13px;}
+.data-table thead tr{background:#eef1fb;}
+.data-table th{padding:11px 13px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#6b7494;white-space:nowrap;border-bottom:2px solid #dde2f0;}
+.data-table td{padding:10px 13px;border-bottom:1px solid #f0f2fa;vertical-align:top;max-width:180px;word-break:break-word;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:#f8f9ff;}
+.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:600;}
+.badge-panti{background:#ebf8ff;color:#2b6cb0;}
+.badge-rs{background:#fff5f5;color:#c53030;}
+.badge-rumah{background:#f0fff4;color:#276749;}
+.badge-lain{background:#faf5ff;color:#553c9a;}
+.btn-del-row{background:none;border:none;color:#cbd5e0;cursor:pointer;font-size:15px;padding:2px 5px;border-radius:4px;transition:color .2s;}
+.btn-del-row:hover{color:var(--red);}
+.btn-det{background:none;border:none;color:var(--navy);cursor:pointer;font-size:12px;font-weight:600;padding:2px 7px;border-radius:4px;transition:background .2s;}
+.btn-det:hover{background:#eef1fb;}
+.no-data{text-align:center;padding:60px 20px;color:#6b7494;}
+.loading-data{text-align:center;padding:40px;color:#6b7494;font-size:14px;}
+.pagination{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:13px;color:#6b7494;flex-wrap:wrap;gap:8px;}
+.pg-btns{display:flex;gap:5px;flex-wrap:wrap;}
+.pg-btn{background:#fff;border:1.5px solid #dde2f0;color:var(--navy);padding:6px 12px;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;}
+.pg-btn:hover:not(:disabled){background:#eef1fb;}
+.pg-btn:disabled{opacity:.35;cursor:default;}
+.pg-btn.cur{background:var(--navy);color:#fff;border-color:var(--navy);}
+/* Login */
+.overlay{display:none;position:fixed;inset:0;background:rgba(10,10,30,.7);z-index:200;align-items:center;justify-content:center;}
+.overlay.show{display:flex;}
+.login-box{background:#fff;border-radius:16px;padding:36px 40px;max-width:360px;width:90%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.28);}
+.login-box .lock{font-size:40px;margin-bottom:12px;}
+.login-box h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:6px;}
+.login-box p{font-size:12.5px;color:#6b7494;margin-bottom:20px;}
+.login-inp{width:100%;border:1.5px solid #dde2f0;border-radius:8px;padding:12px 14px;font-family:'Source Sans 3',sans-serif;font-size:15px;outline:none;margin-bottom:8px;text-align:center;letter-spacing:3px;}
+.login-inp:focus{border-color:var(--navy);}
+.login-err{color:var(--red);font-size:12px;margin-bottom:10px;min-height:16px;}
+.btn-masuk{width:100%;background:var(--navy);color:#fff;border:none;padding:12px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px;}
+.btn-masuk:hover{background:var(--navy2);}
+.btn-batal-login{width:100%;background:#fff;border:1.5px solid #dde2f0;color:#6b7494;padding:10px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
+/* Modal detail */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(10,10,30,.55);z-index:300;align-items:center;justify-content:center;padding:20px;}
+.modal-bg.show{display:flex;}
+.modal-box{background:#fff;border-radius:14px;padding:28px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.25);}
+.modal-box h3{font-family:'Playfair Display',serif;font-size:17px;color:var(--navy);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #eee;}
+.mrow{display:flex;gap:10px;margin-bottom:9px;font-size:13px;}
+.mrow .ml{font-weight:600;color:#6b7494;min-width:145px;flex-shrink:0;}
+.mrow .mv{color:var(--deep);}
+.mts{font-size:11px;color:#6b7494;text-align:right;margin-top:12px;padding-top:10px;border-top:1px solid #eee;}
+.modal-close{margin-top:16px;width:100%;background:#eef1fb;border:1px solid #dde2f0;color:var(--navy);padding:10px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:13.5px;cursor:pointer;}
+/* Confirm */
+.confirm-bg{display:none;position:fixed;inset:0;background:rgba(10,10,30,.5);z-index:400;align-items:center;justify-content:center;}
+.confirm-bg.show{display:flex;}
+.confirm-box{background:#fff;border-radius:12px;padding:28px 32px;max-width:340px;width:90%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.2);}
+.confirm-box h4{font-size:16px;font-weight:700;color:var(--mid);margin-bottom:8px;}
+.confirm-box p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.confirm-btns{display:flex;gap:10px;}
+.btn-cancel{flex:1;background:#fff;border:1.5px solid #dde2f0;color:#6b7494;padding:10px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:13px;cursor:pointer;}
+.btn-danger{flex:1;background:var(--red);border:none;color:#fff;padding:10px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:13px;cursor:pointer;}
+/* Toast */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(30px);background:#1a3a2a;color:#fff;border-radius:10px;padding:13px 24px;font-size:13.5px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.2);}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:600px){.two-col{grid-template-columns:1fr;}.fgrp{padding:16px;}.note-box,.submit-wrap,.err-banner{padding-left:16px;padding-right:16px;}.sec-label{padding-left:16px;}.login-box{padding:28px 20px;}.admin-toprow{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+
+<!-- ══════════ USER VIEW ══════════ -->
+<div id="user-view">
+<div class="header">
+  <div class="hcross">✝</div>
+  <h1>Pendataan Umat Lansia/Sakit yang Dilayani<br>Ibadat Singkat Penerimaan SMK Tidak di Gereja</h1>
+  <div class="hdiv"></div>
+  <p>Paroki Bintaro &mdash; Tahun 2026<br>Silahkan Bapak/Ibu Prodiakon/nes mengisi data lengkap melalui form di bawah ini.</p>
+</div>
+
+<div class="form-wrap">
+<div class="form-card">
+
+  <div id="form-section">
+  <form id="smkForm" onsubmit="kirimData(event)">
+    <div class="sec-label">Bagian A — Data Prodiakon</div>
+    <div class="fgrp">
+      <div class="field">
+        <label><span class="num">1</span>Nama Prodiakon <span class="req">*</span></label>
+        <select id="prodiakon" required onchange="autoFill()">
+          <option value="">— Pilih Nama Prodiakon (A–Z) —</option>
+          <option value="AGNES PRILLY DWI RINAWATI|4|MIKAEL">AGNES PRILLY DWI RINAWATI</option>
+          <option value="ALBERT KEVIN|8|AGUSTINUS">ALBERT KEVIN</option>
+          <option value="ALBERTINA PRIHARTINI|16|BERNADETH">ALBERTINA PRIHARTINI</option>
+          <option value="ALBERTUS BINARDI BACHTIAR|9|BONIFASIUS">ALBERTUS BINARDI BACHTIAR</option>
+          <option value="ALPHONSUS BEN. ARIEVANDI DEWANTORO|14|MARIA PENCINTA DAMAI">ALPHONSUS BEN. ARIEVANDI DEWANTORO</option>
+          <option value="ANASTASIA ENDANG YASMINTARSIH|11|Sta.AMANDA">ANASTASIA ENDANG YASMINTARSIH</option>
+          <option value="ANASTASIA KRISTIANI|9|BRIGITTA">ANASTASIA KRISTIANI</option>
+          <option value="ANASTASIA NGADINEM|6|Sta.LUSIA">ANASTASIA NGADINEM</option>
+          <option value="ANDREAS DJODI PRASTYO WIBOWO|6|MARIA">ANDREAS DJODI PRASTYO WIBOWO</option>
+          <option value="ANDREAS LESTANTO|10|SLAMET RIYADI">ANDREAS LESTANTO</option>
+          <option value="ANDREAS WIDI SUSETYO|4|St.ANDREAS">ANDREAS WIDI SUSETYO</option>
+          <option value="ANTONIUS EKAHANANTA DHANARDAYA|7|Sta.BAKHITA">ANTONIUS EKAHANANTA DHANARDAYA</option>
+          <option value="ANTONIUS JUNIANTO SANTOSO|1|MAURITIUS">ANTONIUS JUNIANTO SANTOSO</option>
+          <option value="ANTONIUS SONNI HASTORO|4|St.MIKAEL">ANTONIUS SONNI HASTORO</option>
+          <option value="ANTONIUS WAWAN DWI SAPUTRO|13|SOEGIJOPARANOTO">ANTONIUS WAWAN DWI SAPUTRO</option>
+          <option value="APOLINARIS SAMSUDIN GERU|13|SOEGIJOPARANOTO">APOLINARIS SAMSUDIN GERU</option>
+          <option value="BENEDIKTUS KANEKA PASADONA|2|St.LUDOWIKA">BENEDIKTUS KANEKA PASADONA</option>
+          <option value="BERNADETHA SUPANI|14|YUSTINUS">BERNADETHA SUPANI</option>
+          <option value="CATHERINE EMMILIA ALEXANDRA|17|HIERONIMUS">CATHERINE EMMILIA ALEXANDRA</option>
+          <option value="CHATARINA BIMA SULISTYANINGTYAS|2|St.ADISUCIPTO">CHATARINA BIMA SULISTYANINGTYAS</option>
+          <option value="CHRISTIANUS JEREMIAS HUREPUTRANTO|1|St.STEFANUS">CHRISTIANUS JEREMIAS HUREPUTRANTO</option>
+          <option value="CHRISTOPER RICHARD NITIHARDJA|1|St.ANTONIUS">CHRISTOPER RICHARD NITIHARDJA</option>
+          <option value="CLEMENSIUS BAYU ANANTO SENO|6|Sta.FAUSTINA">CLEMENSIUS BAYU ANANTO SENO</option>
+          <option value="CRISTINA SRI LESTARI|6|YUSUF">CRISTINA SRI LESTARI</option>
+          <option value="DEMITRIUS WISNU WIDIANTORO|10|St.SLAMET RIYADI">DEMITRIUS WISNU WIDIANTORO</option>
+          <option value="DON BOSCO WAHYU SENO SUJADI|9|BRIGITTA">DON BOSCO WAHYU SENO SUJADI</option>
+          <option value="DONADUS WIDIATMO|14|CORNELIUS">DONADUS WIDIATMO</option>
+          <option value="ESRA HUMISAR PANJAITAN|5|Sta.CAECILIA">ESRA HUMISAR PANJAITAN</option>
+          <option value="ESTER ADOLFINE ATLANTA|1|THOMAS">ESTER ADOLFINE ATLANTA</option>
+          <option value="FABIANUS BATTA|5|Sta.CAECILIA">FABIANUS BATTA</option>
+          <option value="FIKTOR BAYURAMAN AJI|5|Sta.AGNES">FIKTOR BAYURAMAN AJI</option>
+          <option value="FILIPUS RIO PRIADI|5|Sta.VERONICA">FILIPUS RIO PRIADI</option>
+          <option value="FLORENTINA AGUSTINA PURWANTARI|9|THERESIA AVILA">FLORENTINA AGUSTINA PURWANTARI</option>
+          <option value="FRANSISCUS HERI YUNIANTO|2|DRIYARKORO">FRANSISCUS HERI YUNIANTO</option>
+          <option value="FRANSISKA DEWI SUPRIHATI|6|LUSIA">FRANSISKA DEWI SUPRIHATI</option>
+          <option value="FRANSISKUS KAKO|18|St.PAULUS">FRANSISKUS KAKO</option>
+          <option value="FRANSISKUS SUPRIYADI|6|MARIA">FRANSISKUS SUPRIYADI</option>
+          <option value="FRANSISKUS XAVERIUS SUTONO|2|St.BENEDIKTUS">FRANSISKUS XAVERIUS SUTONO</option>
+          <option value="FX. NGADIYONO|10|SLAMET RIYADI">FX. NGADIYONO</option>
+          <option value="GISELA SATYANI SUMANA (MEKKY)|7|MAGDALENA CANOSSA">GISELA SATYANI SUMANA (MEKKY)</option>
+          <option value="GREGORIUS WISNU YULIANTO|1|STEFANUS">GREGORIUS WISNU YULIANTO</option>
+          <option value="HENRICUS KRESNA SAPUTRA|18|St.FRANSISKUS XAVERIUS">HENRICUS KRESNA SAPUTRA</option>
+          <option value="HILARIUS SUHARTOYO|3|PETRUS">HILARIUS SUHARTOYO</option>
+          <option value="HIRONIMUS LUCKY ARMAN|17|YOHANES 23">HIRONIMUS LUCKY ARMAN</option>
+          <option value="HYACINTA ASTUTI RISBYANTARI|3|LEO">HYACINTA ASTUTI RISBYANTARI</option>
+          <option value="IGNATIUS BUNTORO|6|YUSUF">IGNATIUS BUNTORO</option>
+          <option value="IGNATIUS HERU PRABOWO|9|JOYOSEPUTRO">IGNATIUS HERU PRABOWO</option>
+          <option value="IRENEUS DENNY KURNIAWAN|8|ANGELA">IRENEUS DENNY KURNIAWAN</option>
+          <option value="JULIUS ROLAND SEBASTIAN|1|MAURITIUS">JULIUS ROLAND SEBASTIAN</option>
+          <option value="LAURENTIA LINA LIANI|12|St.ALOYSIUS">LAURENTIA LINA LIANI</option>
+          <option value="LAURENSIA YULIANTI TITI RAHAYU|5|VERONICA">LAURENSIA YULIANTI TITI RAHAYU</option>
+          <option value="LIBERT CHARLIE RIMBANI|10|FILIPUS NERI">LIBERT CHARLIE RIMBANI</option>
+          <option value="LUKAS TRINANO|3|ROMO SANJOYO">LUKAS TRINANO</option>
+          <option value="MARCELLINUS HENDRO RESTANTO|11|ADRIANUS">MARCELLINUS HENDRO RESTANTO</option>
+          <option value="MARCELIUS AGUNG SULISTYO|17|YOHANES PAULUS II">MARCELIUS AGUNG SULISTYO</option>
+          <option value="MARIA BERNADETT WIYANDARI|3|TARCISIUS">MARIA BERNADETT WIYANDARI</option>
+          <option value="MARIA CLARISSA WIDYAWATI|9|Sta.LAURENSIA">MARIA CLARISSA WIDYAWATI</option>
+          <option value="MARIA THERESIA R.DEWI DINDA M.|11|AMANDA">MARIA THERESIA R.DEWI DINDA M.</option>
+          <option value="MARIA VINCENTIA INGGRID ROSALINA E.A|5|AGNES">MARIA VINCENTIA INGGRID ROSALINA E.A</option>
+          <option value="MATHEUS PRIYO WIDYANARKO|8|AGUSTINUS">MATHEUS PRIYO WIDYANARKO</option>
+          <option value="MICHAEL BENEDICTUS HENDRIE|18|St.LUKAS">MICHAEL BENEDICTUS HENDRIE</option>
+          <option value="PAULUS MARYADI|17|YOHANES PAULUS II">PAULUS MARYADI</option>
+          <option value="PAULUS PAMA GORAN|16|MARIA IMACULATA">PAULUS PAMA GORAN</option>
+          <option value="PAULUS PEHAN|2|St.LUDOWIKA">PAULUS PEHAN</option>
+          <option value="PAULUS PURNOMO|16|Sta.BERNADETH">PAULUS PURNOMO</option>
+          <option value="PAULUS WARSONO|15|YOHANES PENGINJIL">PAULUS WARSONO</option>
+          <option value="PETRUS JOHAN PRIYANTO|14|St.ALFONSUS">PETRUS JOHAN PRIYANTO</option>
+          <option value="PETRUS MESSIAS PRIYO WIKANTO|15|St.YOHANES PENGINJIL">PETRUS MESSIAS PRIYO WIKANTO</option>
+          <option value="PRISKILA BETSEBA RUSIANA|4|St.VINCENTIUS">PRISKILA BETSEBA RUSIANA</option>
+          <option value="RAPHAEL FAJAR GUNAWAN WIBISONO|8|Sta.CLARA">RAPHAEL FAJAR GUNAWAN WIBISONO</option>
+          <option value="ROBBY EDISON SIMAMORA|9|Sta.THERESIA AVILIA">ROBBY EDISON SIMAMORA</option>
+          <option value="ROBERTUS SUHARNO|9|JOYOSEPUTRO">ROBERTUS SUHARNO</option>
+          <option value="ROSMIDA RAFAELA SIHOMBING|15|St.YOHANES MARIA VIANNEY">ROSMIDA RAFAELA SIHOMBING</option>
+          <option value="RUDERICUS ARI SETIAWAN|6|St.YUSUF">RUDERICUS ARI SETIAWAN</option>
+          <option value="SAFERIANUS RADO|2|MATTEO RICCI">SAFERIANUS RADO</option>
+          <option value="SEBASTIAN FAJAR ANDIKA|11|Sta.AMANDA">SEBASTIAN FAJAR ANDIKA</option>
+          <option value="SISILIA EKA PARAMITA MEIDIASTUTI|4|St.ANDREAS">SISILIA EKA PARAMITA MEIDIASTUTI</option>
+          <option value="SISILIA YULIANA DWI KARTIKA|3|YOS SUDARSO">SISILIA YULIANA DWI KARTIKA</option>
+          <option value="STEFANUS ADRIANTO|15|St.YOHANES PEMBABTIS">STEFANUS ADRIANTO</option>
+          <option value="STEFANUS HERMANTO|14|MARIA PENCINTA DAMAI">STEFANUS HERMANTO</option>
+          <option value="STEFANUS NDARU CAHYONO|14|MARIA PENCINTA DAMAI">STEFANUS NDARU CAHYONO</option>
+          <option value="STEPHANUS ISTI WIDADGO|10|St.ALBERTUS">STEPHANUS ISTI WIDADGO</option>
+          <option value="STEPHANUS YOHANES SURADI|2|St.BENEDIKTUS">STEPHANUS YOHANES SURADI</option>
+          <option value="STEVEN DEVERANO ADAM DATANG|3|LEONARDUS">STEVEN DEVERANO ADAM DATANG</option>
+          <option value="TARSISIUS RIYANTO|14|St.ALFONSUS">TARSISIUS RIYANTO</option>
+          <option value="THEODORUS RAWUH ANGGANA SETA|5|ROBERTUS">THEODORUS RAWUH ANGGANA SETA</option>
+          <option value="TITUS PUJI SUSANTO|15|YOHANES PEMBABTIS">TITUS PUJI SUSANTO</option>
+          <option value="USBER FRANSISKUS MANURUNG|14|St.YUSTINUS">USBER FRANSISKUS MANURUNG</option>
+          <option value="VALENTINUS DEFY BONDANG|7|FRANSIKUS ASISI">VALENTINUS DEFY BONDANG</option>
+          <option value="VENANSIUS MF TINUS CHONDRO|8|ANGELA">VENANSIUS MF TINUS CHONDRO</option>
+          <option value="VERONICA ANDRIANY MEGAWATY|15|St.YOHANES DON BOSCO">VERONICA ANDRIANY MEGAWATY</option>
+          <option value="VINCENTIUS AGUNG PRASETYO WIBOWO|18|St.FRANSISKUS XAVERIUS">VINCENTIUS AGUNG PRASETYO WIBOWO</option>
+          <option value="VINCENTIUS F. RIO PANCORO|14|CORNELIUS">VINCENTIUS F. RIO PANCORO</option>
+          <option value="VINCENTIUS JATMIKO TRI YULIANTO|2|St.DRIYARKORO">VINCENTIUS JATMIKO TRI YULIANTO</option>
+          <option value="VINCENTIUS PAUL BUDIMAN KHARMA|7|St.KRISTOFORUS">VINCENTIUS PAUL BUDIMAN KHARMA</option>
+          <option value="WILHELMUS HENDRO WIDYO|14|MARIA PENCINTA DAMAI">WILHELMUS HENDRO WIDYO</option>
+          <option value="WILFRIDUS LEBA|9|Sta.LAURENSIA">WILFRIDUS LEBA</option>
+          <option value="Y.P. SUTARMAN|13|BERNADUS">Y.P. SUTARMAN</option>
+          <option value="YAKOBUS NURBALI|16|Sta.MARIA IMMACULATA">YAKOBUS NURBALI</option>
+          <option value="YOHANES ARRY YULIANTO|6|MARIA">YOHANES ARRY YULIANTO</option>
+          <option value="YOHANES DE BRITTO SUYATMIN|16|St.COMFORTI">YOHANES DE BRITTO SUYATMIN</option>
+          <option value="YOHANES HEDY EKO WIBOWO|4|St.VINCENTIUS">YOHANES HEDY EKO WIBOWO</option>
+          <option value="YOHANES PEMANDI TIWUD KUNCORO|4|MIKAEL">YOHANES PEMANDI TIWUD KUNCORO</option>
+          <option value="YOHANES RASUL BARIYANTO|17|St.YOHANES 23">YOHANES RASUL BARIYANTO</option>
+          <option value="YOHANES TOTO RACHMADI|14|LAURENSIUS">YOHANES TOTO RACHMADI</option>
+          <option value="YOSEF BUDI SUSANTO|4|GABRIEL">YOSEF BUDI SUSANTO</option>
+          <option value="YULIA YANIK BADRIAH|13|St.BERNADUS">YULIA YANIK BADRIAH</option>
+          <option value="YULIUS WIDODO SRI|16|CONFORTI">YULIUS WIDODO SRI</option>
+          <option value="YUSTINUS ERI PRASTIANTOKO|15|St.YOHANES DON BOSCO">YUSTINUS ERI PRASTIANTOKO</option>
+        </select>
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label><span class="num">2</span>Wilayah Prodiakon <span class="req">*</span></label>
+          <select id="wil-prod" required>
+            <option value="">— Pilih Wilayah —</option>
+            <option value="1">Wilayah 1</option><option value="2">Wilayah 2</option><option value="3">Wilayah 3</option>
+            <option value="4">Wilayah 4</option><option value="5">Wilayah 5</option><option value="6">Wilayah 6</option>
+            <option value="7">Wilayah 7</option><option value="8">Wilayah 8</option><option value="9">Wilayah 9</option>
+            <option value="10">Wilayah 10</option><option value="11">Wilayah 11</option><option value="12">Wilayah 12</option>
+            <option value="13">Wilayah 13</option><option value="14">Wilayah 14</option><option value="15">Wilayah 15</option>
+            <option value="16">Wilayah 16</option><option value="17">Wilayah 17</option><option value="18">Wilayah 18</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><span class="num">3</span>Lingkungan Prodiakon <span class="req">*</span></label>
+          <input type="text" id="lk-prod" class="readonly-f" placeholder="Terisi otomatis" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <div class="sec-label">Bagian B — Data Umat Lansia / Sakit</div>
+    <div class="fgrp">
+      <div class="field">
+        <label><span class="num">4</span>Nama Lengkap / Panggilan Umat yang Menerima SMK <span class="req">*</span></label>
+        <textarea id="nama-umat" placeholder="Tulis nama lengkap atau panggilan umat..." required></textarea>
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label><span class="num">5</span>Wilayah Umat <span class="req">*</span></label>
+          <select id="wil-umat" required>
+            <option value="">— Pilih Wilayah —</option>
+            <option value="1">Wilayah 1</option><option value="2">Wilayah 2</option><option value="3">Wilayah 3</option>
+            <option value="4">Wilayah 4</option><option value="5">Wilayah 5</option><option value="6">Wilayah 6</option>
+            <option value="7">Wilayah 7</option><option value="8">Wilayah 8</option><option value="9">Wilayah 9</option>
+            <option value="10">Wilayah 10</option><option value="11">Wilayah 11</option><option value="12">Wilayah 12</option>
+            <option value="13">Wilayah 13</option><option value="14">Wilayah 14</option><option value="15">Wilayah 15</option>
+            <option value="16">Wilayah 16</option><option value="17">Wilayah 17</option><option value="18">Wilayah 18</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><span class="num">6</span>Lingkungan Umat <span class="req">*</span></label>
+          <select id="lk-umat" required>
+            <option value="">— Pilih Lingkungan (A–Z) —</option>
+            <option>ADRIANUS</option><option>AGUSTINUS</option><option>AGNES</option><option>AMANDA</option>
+            <option>ANGELA</option><option>BERNADETH</option><option>BERNADUS</option><option>BONIFASIUS</option>
+            <option>BRIGITTA</option><option>CONFORTI</option><option>CORNELIUS</option><option>DRIYARKORO</option>
+            <option>FILIPUS NERI</option><option>FRANSIKUS ASISI</option><option>GABRIEL</option><option>HIERONIMUS</option>
+            <option>JOYOSEPUTRO</option><option>LAURENSIUS</option><option>LEO</option><option>LEONARDUS</option>
+            <option>LUSIA</option><option>MAGDALENA CANOSSA</option><option>MARIA</option><option>MARIA IMACULATA</option>
+            <option>MARIA PENCINTA DAMAI</option><option>MATTEO RICCI</option><option>MAURITIUS</option><option>MIKAEL</option>
+            <option>PETRUS</option><option>ROBERTUS</option><option>ROMO SANJOYO</option><option>SLAMET RIYADI</option>
+            <option>SOEGIJOPARANOTO</option><option>St.ADISUCIPTO</option><option>St.ALBERTUS</option><option>St.ALFONSUS</option>
+            <option>St.ALOYSIUS</option><option>St.ANDREAS</option><option>St.ANTONIUS</option><option>St.BENEDIKTUS</option>
+            <option>St.BERNADUS</option><option>St.COMFORTI</option><option>St.DRIYARKORO</option><option>St.FRANSISKUS XAVERIUS</option>
+            <option>St.KRISTOFORUS</option><option>St.LUKAS</option><option>St.LUDOWIKA</option><option>St.MIKAEL</option>
+            <option>St.PAULUS</option><option>St.SLAMET RIYADI</option><option>St.STEFANUS</option><option>St.VINCENTIUS</option>
+            <option>St.YOHANES 23</option><option>St.YOHANES DON BOSCO</option><option>St.YOHANES MARIA VIANNEY</option>
+            <option>St.YOHANES PEMBABTIS</option><option>St.YOHANES PENGINJIL</option><option>St.YUSUF</option><option>St.YUSTINUS</option>
+            <option>Sta.AGNES</option><option>Sta.AMANDA</option><option>Sta.BAKHITA</option><option>Sta.BERNADETH</option>
+            <option>Sta.CAECILIA</option><option>Sta.CLARA</option><option>Sta.FAUSTINA</option><option>Sta.LAURENSIA</option>
+            <option>Sta.LUSIA</option><option>Sta.MARIA IMMACULATA</option><option>Sta.THERESIA AVILIA</option><option>Sta.VERONICA</option>
+            <option>TARCISIUS</option><option>THERESIA AVILA</option><option>THOMAS</option><option>VERONICA</option>
+            <option>YOHANES 23</option><option>YOHANES PAULUS II</option><option>YOHANES PEMBABTIS</option>
+            <option>YOHANES PENGINJIL</option><option>YOS SUDARSO</option><option>YUSUF</option><option>YUSTINUS</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <div class="sec-label">Bagian C — Penerimaan SMK</div>
+    <div class="fgrp">
+      <div class="field">
+        <label><span class="num">7</span>Lokasi Penerimaan SMK <span class="req">*</span></label>
+        <div class="radio-grp">
+          <label><input type="radio" name="lokasi" value="Panti Jompo/Wreda"><span>🏠 Panti Jompo / Wreda</span></label>
+          <label><input type="radio" name="lokasi" value="Rumah Sakit"><span>🏥 Rumah Sakit</span></label>
+          <label><input type="radio" name="lokasi" value="Rumah Tinggal"><span>🏡 Rumah Tinggal</span></label>
+          <label><input type="radio" name="lokasi" value="Lainnya"><span>📍 Lainnya</span></label>
+        </div>
+        <input type="text" id="lokasi-lain" placeholder="Sebutkan lokasi lainnya..." style="margin-top:9px;display:none;">
+      </div>
+      <div class="field">
+        <label><span class="num">8</span>Nama Keluarga yang Menunggu dan Menerima SMK <span class="req">*</span></label>
+        <textarea id="nama-kel" placeholder="Tulis nama keluarga yang hadir mendampingi..." required></textarea>
+      </div>
+      <div class="field">
+        <label><span class="num">9</span>Jumlah SMK yang Diterimakan <span class="req">*</span></label>
+        <input type="number" id="jml-smk" placeholder="Contoh: 3" min="1" required style="max-width:200px;">
+      </div>
+      <div class="field">
+        <label><span class="num">10</span>Kendala yang Sering Dihadapi</label>
+        <textarea id="kendala" placeholder="Ceritakan kendala saat menerimakan SMK di luar gereja..." style="min-height:88px;"></textarea>
+      </div>
+    </div>
+    <div class="err-banner" id="err-banner">⚠️ Gagal mengirim data. Periksa koneksi internet Anda dan coba lagi.</div>
+    <div class="note-box">
+      <strong>📋 Catatan:</strong> Kolom bertanda <span style="color:var(--red)">*</span> wajib diisi.
+      Setelah klik <strong>Kirim</strong>, data langsung masuk ke database Admin Paroki. Pastikan semua isian sudah benar.
+    </div>
+    <div class="submit-wrap">
+      <button type="submit" class="btn-kirim" id="btn-kirim">
+        <div class="spinner"></div>
+        <span class="btn-txt">📤 &nbsp;Kirim</span>
+      </button>
+    </div>
+  </form>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="success-screen">
+    <div class="ok-icon">✅</div>
+    <h2>Data Berhasil Dikirim!</h2>
+    <p>Terima kasih, Bapak/Ibu Prodiakon/nes.<br>Data pelayanan SMK Anda telah masuk ke database Admin Paroki Bintaro.</p>
+    <div class="ref-box">
+      <span class="ref-no" id="ref-no">—</span>
+      <small>Nomor Referensi — simpan sebagai bukti pengiriman</small>
+    </div>
+    <button class="btn-new" onclick="resetForm()">✙ Kirim Data Baru</button>
+  </div>
+
+</div>
+</div>
+
+<div class="admin-footer">
+  <button class="btn-admin-link" onclick="openLogin()">
+    <span class="adm-dot"></span> 🛡️ Admin
+  </button>
+</div>
+</div><!-- /user-view -->
+
+<!-- ══════════ ADMIN PANEL ══════════ -->
+<div id="admin-panel">
+  <div class="admin-topbar">
+    <div class="admin-brand">🛡️ Admin Panel <small>Database SMK — Paroki Bintaro 2026</small></div>
+    <button class="btn-logout" onclick="logout()">↩ Keluar</button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-toprow">
+      <div>
+        <div class="admin-title">Database Rekap SMK</div>
+        <div class="admin-title"><small id="admin-sub">Memuat data dari Google Sheets...</small></div>
+      </div>
+      <div class="btn-group">
+        <button class="btn-refresh" onclick="loadAdminData()">🔄 Refresh</button>
+        <button class="btn-csv" onclick="exportCSV()">⬇ Export CSV</button>
+      </div>
+    </div>
+    <div class="stats-row" id="stats-row">
+      <div class="stat-box"><div class="stat-num">—</div><div class="stat-lbl">Total Data</div></div>
+      <div class="stat-box"><div class="stat-num">—</div><div class="stat-lbl">Total SMK</div></div>
+      <div class="stat-box"><div class="stat-num">—</div><div class="stat-lbl">Wilayah Aktif</div></div>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Cari nama prodiakon, umat, wilayah, lingkungan..." oninput="renderTable()">
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr>
+          <th>#</th><th>Ref</th><th>Tgl. Input</th><th>Nama Prodiakon</th>
+          <th>Wil.</th><th>Lk. Prod.</th><th>Umat / Lansia</th>
+          <th>Wil. Umat</th><th>Lk. Umat</th><th>Lokasi</th><th>Jml</th><th></th>
+        </tr></thead>
+        <tbody id="tbl-body"><tr><td colspan="12"><div class="loading-data">⏳ Memuat data...</div></td></tr></tbody>
+      </table>
+      <div id="no-data" class="no-data" style="display:none;">
+        <div style="font-size:40px;margin-bottom:10px;">📭</div>
+        <p>Belum ada data masuk dari Prodiakon.</p>
+      </div>
+    </div>
+    <div class="pagination">
+      <span id="pg-info"></span>
+      <div class="pg-btns" id="pg-btns"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="overlay" id="login-overlay">
+  <div class="login-box">
+    <div class="lock">🔐</div>
+    <h3>Akses Admin</h3>
+    <p>Masukkan kata sandi untuk mengakses<br>database SMK Paroki Bintaro 2026.</p>
+    <input class="login-inp" type="password" id="pw-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="login-err" id="login-err"></div>
+    <button class="btn-masuk" onclick="doLogin()">Masuk →</button>
+    <button class="btn-batal-login" onclick="closeLogin()">Batal</button>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modal-box"></div>
+</div>
+
+<!-- CONFIRM -->
+<div class="confirm-bg" id="confirm-bg">
+  <div class="confirm-box">
+    <h4 id="conf-title">Hapus Data?</h4>
+    <p id="conf-msg"></p>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">Batal</button>
+      <button class="btn-danger" id="conf-ok">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+//  KONFIGURASI — ISI SETELAH DEPLOY APPS SCRIPT
+// ══════════════════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwG0pLiMvKegYJhEFQJmr_OKX5tiX3g_QJ1JLqPszFDlHFWR4jcCLpxv8lzmmXGwEp53g/exec';
+const ADMIN_PW   = 'Paroki1@2026';       // Kata sandi login Admin di halaman ini
+const ADMIN_KEY  = 'parokibintaro2026'; // Harus sama dengan ADMIN_KEY di Code.gs
+// ══════════════════════════════════════════════
+
+// ── Data Prodiakon (lookup table terpisah — lebih andal) ──
+const PRODIAKON_DB = {
+  'AGNES PRILLY DWI RINAWATI':           {wil:'4',  lk:'MIKAEL'},
+  'ALBERT KEVIN':                        {wil:'8',  lk:'AGUSTINUS'},
+  'ALBERTINA PRIHARTINI':                {wil:'16', lk:'BERNADETH'},
+  'ALBERTUS BINARDI BACHTIAR':           {wil:'9',  lk:'BONIFASIUS'},
+  'ALPHONSUS BEN. ARIEVANDI DEWANTORO':  {wil:'14', lk:'MARIA PENCINTA DAMAI'},
+  'ANASTASIA ENDANG YASMINTARSIH':       {wil:'11', lk:'Sta.AMANDA'},
+  'ANASTASIA KRISTIANI':                 {wil:'9',  lk:'BRIGITTA'},
+  'ANASTASIA NGADINEM':                  {wil:'6',  lk:'Sta.LUSIA'},
+  'ANDREAS DJODI PRASTYO WIBOWO':        {wil:'6',  lk:'MARIA'},
+  'ANDREAS LESTANTO':                    {wil:'10', lk:'SLAMET RIYADI'},
+  'ANDREAS WIDI SUSETYO':                {wil:'4',  lk:'St.ANDREAS'},
+  'ANTONIUS EKAHANANTA DHANARDAYA':      {wil:'7',  lk:'Sta.BAKHITA'},
+  'ANTONIUS JUNIANTO SANTOSO':           {wil:'1',  lk:'MAURITIUS'},
+  'ANTONIUS SONNI HASTORO':              {wil:'4',  lk:'St.MIKAEL'},
+  'ANTONIUS WAWAN DWI SAPUTRO':          {wil:'13', lk:'SOEGIJOPARANOTO'},
+  'APOLINARIS SAMSUDIN GERU':            {wil:'13', lk:'SOEGIJOPARANOTO'},
+  'BENEDIKTUS KANEKA PASADONA':          {wil:'2',  lk:'St.LUDOWIKA'},
+  'BERNADETHA SUPANI':                   {wil:'14', lk:'YUSTINUS'},
+  'CATHERINE EMMILIA ALEXANDRA':         {wil:'17', lk:'HIERONIMUS'},
+  'CHATARINA BIMA SULISTYANINGTYAS':     {wil:'2',  lk:'St.ADISUCIPTO'},
+  'CHRISTIANUS JEREMIAS HUREPUTRANTO':   {wil:'1',  lk:'St.STEFANUS'},
+  'CHRISTOPER RICHARD NITIHARDJA':       {wil:'1',  lk:'St.ANTONIUS'},
+  'CLEMENSIUS BAYU ANANTO SENO':         {wil:'6',  lk:'Sta.FAUSTINA'},
+  'CRISTINA SRI LESTARI':                {wil:'6',  lk:'YUSUF'},
+  'DEMITRIUS WISNU WIDIANTORO':          {wil:'10', lk:'St.SLAMET RIYADI'},
+  'DON BOSCO WAHYU SENO SUJADI':         {wil:'9',  lk:'BRIGITTA'},
+  'DONADUS WIDIATMO':                    {wil:'14', lk:'CORNELIUS'},
+  'ESRA HUMISAR PANJAITAN':              {wil:'5',  lk:'Sta.CAECILIA'},
+  'ESTER ADOLFINE ATLANTA':              {wil:'1',  lk:'THOMAS'},
+  'FABIANUS BATTA':                      {wil:'5',  lk:'Sta.CAECILIA'},
+  'FIKTOR BAYURAMAN AJI':                {wil:'5',  lk:'Sta.AGNES'},
+  'FILIPUS RIO PRIADI':                  {wil:'5',  lk:'Sta.VERONICA'},
+  'FLORENTINA AGUSTINA PURWANTARI':      {wil:'9',  lk:'THERESIA AVILA'},
+  'FRANSISCUS HERI YUNIANTO':            {wil:'2',  lk:'DRIYARKORO'},
+  'FRANSISKA DEWI SUPRIHATI':            {wil:'6',  lk:'LUSIA'},
+  'FRANSISKUS KAKO':                     {wil:'18', lk:'St.PAULUS'},
+  'FRANSISKUS SUPRIYADI':                {wil:'6',  lk:'MARIA'},
+  'FRANSISKUS XAVERIUS SUTONO':          {wil:'2',  lk:'St.BENEDIKTUS'},
+  'FX. NGADIYONO':                       {wil:'10', lk:'SLAMET RIYADI'},
+  'GISELA SATYANI SUMANA (MEKKY)':       {wil:'7',  lk:'MAGDALENA CANOSSA'},
+  'GREGORIUS WISNU YULIANTO':            {wil:'1',  lk:'STEFANUS'},
+  'HENRICUS KRESNA SAPUTRA':             {wil:'18', lk:'St.FRANSISKUS XAVERIUS'},
+  'HILARIUS SUHARTOYO':                  {wil:'3',  lk:'PETRUS'},
+  'HIRONIMUS LUCKY ARMAN':               {wil:'17', lk:'YOHANES 23'},
+  'HYACINTA ASTUTI RISBYANTARI':         {wil:'3',  lk:'LEO'},
+  'IGNATIUS BUNTORO':                    {wil:'6',  lk:'YUSUF'},
+  'IGNATIUS HERU PRABOWO':               {wil:'9',  lk:'JOYOSEPUTRO'},
+  'IRENEUS DENNY KURNIAWAN':             {wil:'8',  lk:'ANGELA'},
+  'JULIUS ROLAND SEBASTIAN':             {wil:'1',  lk:'MAURITIUS'},
+  'LAURENTIA LINA LIANI':                {wil:'12', lk:'St.ALOYSIUS'},
+  'LAURENSIA YULIANTI TITI RAHAYU':      {wil:'5',  lk:'VERONICA'},
+  'LIBERT CHARLIE RIMBANI':              {wil:'10', lk:'FILIPUS NERI'},
+  'LUKAS TRINANO':                       {wil:'3',  lk:'ROMO SANJOYO'},
+  'MARCELLINUS HENDRO RESTANTO':         {wil:'11', lk:'ADRIANUS'},
+  'MARCELIUS AGUNG SULISTYO':            {wil:'17', lk:'YOHANES PAULUS II'},
+  'MARIA BERNADETT WIYANDARI':           {wil:'3',  lk:'TARCISIUS'},
+  'MARIA CLARISSA WIDYAWATI':            {wil:'9',  lk:'Sta.LAURENSIA'},
+  'MARIA THERESIA R.DEWI DINDA M.':      {wil:'11', lk:'AMANDA'},
+  'MARIA VINCENTIA INGGRID ROSALINA E.A':{wil:'5',  lk:'AGNES'},
+  'MATHEUS PRIYO WIDYANARKO':            {wil:'8',  lk:'AGUSTINUS'},
+  'MICHAEL BENEDICTUS HENDRIE':          {wil:'18', lk:'St.LUKAS'},
+  'PAULUS MARYADI':                      {wil:'17', lk:'YOHANES PAULUS II'},
+  'PAULUS PAMA GORAN':                   {wil:'16', lk:'MARIA IMACULATA'},
+  'PAULUS PEHAN':                        {wil:'2',  lk:'St.LUDOWIKA'},
+  'PAULUS PURNOMO':                      {wil:'16', lk:'Sta.BERNADETH'},
+  'PAULUS WARSONO':                      {wil:'15', lk:'YOHANES PENGINJIL'},
+  'PETRUS JOHAN PRIYANTO':               {wil:'14', lk:'St.ALFONSUS'},
+  'PETRUS MESSIAS PRIYO WIKANTO':        {wil:'15', lk:'St.YOHANES PENGINJIL'},
+  'PRISKILA BETSEBA RUSIANA':            {wil:'4',  lk:'St.VINCENTIUS'},
+  'RAPHAEL FAJAR GUNAWAN WIBISONO':      {wil:'8',  lk:'Sta.CLARA'},
+  'ROBBY EDISON SIMAMORA':               {wil:'9',  lk:'Sta.THERESIA AVILIA'},
+  'ROBERTUS SUHARNO':                    {wil:'9',  lk:'JOYOSEPUTRO'},
+  'ROSMIDA RAFAELA SIHOMBING':           {wil:'15', lk:'St.YOHANES MARIA VIANNEY'},
+  'RUDERICUS ARI SETIAWAN':              {wil:'6',  lk:'St.YUSUF'},
+  'SAFERIANUS RADO':                     {wil:'2',  lk:'MATTEO RICCI'},
+  'SEBASTIAN FAJAR ANDIKA':              {wil:'11', lk:'Sta.AMANDA'},
+  'SISILIA EKA PARAMITA MEIDIASTUTI':    {wil:'4',  lk:'St.ANDREAS'},
+  'SISILIA YULIANA DWI KARTIKA':         {wil:'3',  lk:'YOS SUDARSO'},
+  'STEFANUS ADRIANTO':                   {wil:'15', lk:'St.YOHANES PEMBABTIS'},
+  'STEFANUS HERMANTO':                   {wil:'14', lk:'MARIA PENCINTA DAMAI'},
+  'STEFANUS NDARU CAHYONO':              {wil:'14', lk:'MARIA PENCINTA DAMAI'},
+  'STEPHANUS ISTI WIDADGO':              {wil:'10', lk:'St.ALBERTUS'},
+  'STEPHANUS YOHANES SURADI':            {wil:'2',  lk:'St.BENEDIKTUS'},
+  'STEVEN DEVERANO ADAM DATANG':         {wil:'3',  lk:'LEONARDUS'},
+  'TARSISIUS RIYANTO':                   {wil:'14', lk:'St.ALFONSUS'},
+  'THEODORUS RAWUH ANGGANA SETA':        {wil:'5',  lk:'ROBERTUS'},
+  'TITUS PUJI SUSANTO':                  {wil:'15', lk:'YOHANES PEMBABTIS'},
+  'USBER FRANSISKUS MANURUNG':           {wil:'14', lk:'St.YUSTINUS'},
+  'VALENTINUS DEFY BONDANG':             {wil:'7',  lk:'FRANSIKUS ASISI'},
+  'VENANSIUS MF TINUS CHONDRO':          {wil:'8',  lk:'ANGELA'},
+  'VERONICA ANDRIANY MEGAWATY':          {wil:'15', lk:'St.YOHANES DON BOSCO'},
+  'VINCENTIUS AGUNG PRASETYO WIBOWO':    {wil:'18', lk:'St.FRANSISKUS XAVERIUS'},
+  'VINCENTIUS F. RIO PANCORO':           {wil:'14', lk:'CORNELIUS'},
+  'VINCENTIUS JATMIKO TRI YULIANTO':     {wil:'2',  lk:'St.DRIYARKORO'},
+  'VINCENTIUS PAUL BUDIMAN KHARMA':      {wil:'7',  lk:'St.KRISTOFORUS'},
+  'WILHELMUS HENDRO WIDYO':              {wil:'14', lk:'MARIA PENCINTA DAMAI'},
+  'WILFRIDUS LEBA':                      {wil:'9',  lk:'Sta.LAURENSIA'},
+  'Y.P. SUTARMAN':                       {wil:'13', lk:'BERNADUS'},
+  'YAKOBUS NURBALI':                     {wil:'16', lk:'Sta.MARIA IMMACULATA'},
+  'YOHANES ARRY YULIANTO':               {wil:'6',  lk:'MARIA'},
+  'YOHANES DE BRITTO SUYATMIN':          {wil:'16', lk:'St.COMFORTI'},
+  'YOHANES HEDY EKO WIBOWO':             {wil:'4',  lk:'St.VINCENTIUS'},
+  'YOHANES PEMANDI TIWUD KUNCORO':       {wil:'4',  lk:'MIKAEL'},
+  'YOHANES RASUL BARIYANTO':             {wil:'17', lk:'St.YOHANES 23'},
+  'YOHANES TOTO RACHMADI':               {wil:'14', lk:'LAURENSIUS'},
+  'YOSEF BUDI SUSANTO':                  {wil:'4',  lk:'GABRIEL'},
+  'YULIA YANIK BADRIAH':                 {wil:'13', lk:'St.BERNADUS'},
+  'YULIUS WIDODO SRI':                   {wil:'16', lk:'CONFORTI'},
+  'YUSTINUS ERI PRASTIANTOKO':           {wil:'15', lk:'St.YOHANES DON BOSCO'},
+};
+
+// ── Auto fill: pakai lookup object, bukan parse string ──
+function autoFill(){
+  const sel   = document.getElementById('prodiakon');
+  const nama  = sel.options[sel.selectedIndex].text.trim();
+  const data  = PRODIAKON_DB[nama];
+
+  const elWil = document.getElementById('wil-prod');
+  const elLk  = document.getElementById('lk-prod');
+
+  if(!data){ elWil.value=''; elLk.value=''; return; }
+
+  // Set wilayah
+  elWil.value = data.wil;
+
+  // Set lingkungan — hapus readonly sementara agar JS bisa tulis
+  elLk.removeAttribute('readonly');
+  elLk.value = data.lk;
+  elLk.setAttribute('readonly', true);
+
+  // Animasi konfirmasi visual (highlight hijau sebentar)
+  [elWil, elLk].forEach(el=>{
+    el.style.transition = 'background .3s';
+    el.style.background = '#d4edda';
+    setTimeout(()=>{ el.style.background = '#f5f0e8'; }, 800);
+  });
+}
+
+// ── Radio lokasi ──
+document.querySelectorAll('input[name=lokasi]').forEach(r=>{
+  r.addEventListener('change',function(){
+    document.getElementById('lokasi-lain').style.display = this.value==='Lainnya'?'block':'none';
+  });
+});
+
+// ── KIRIM DATA ──
+async function kirimData(e){
+  e.preventDefault();
+  const lok = document.querySelector('input[name=lokasi]:checked');
+  if(!lok){ alert('Mohon pilih Lokasi Penerimaan SMK.'); return; }
+
+  if(SCRIPT_URL === 'GANTI_DENGAN_URL_APPS_SCRIPT'){
+    alert('⚠️ URL Google Apps Script belum diisi!\nBuka file index.html dan isi bagian SCRIPT_URL.');
+    return;
+  }
+
+  const lokVal = lok.value==='Lainnya' ? 'Lainnya: '+document.getElementById('lokasi-lain').value : lok.value;
+  const pv = document.getElementById('prodiakon').value.split('|');
+  const id = Date.now();
+  const rec = {
+    id, ref: 'SMK-'+id.toString().slice(-6),
+    ts: new Date().toLocaleString('id-ID'),
+    prodiakon: pv[0]||'',
+    wilProd: 'Wilayah '+(document.getElementById('wil-prod').value||''),
+    lkProd:  document.getElementById('lk-prod').value,
+    namaUmat: document.getElementById('nama-umat').value.trim(),
+    wilUmat: 'Wilayah '+(document.getElementById('wil-umat').value||''),
+    lkUmat:  document.getElementById('lk-umat').value,
+    lokasi:  lokVal,
+    namaKel: document.getElementById('nama-kel').value.trim(),
+    jmlSMK:  parseInt(document.getElementById('jml-smk').value)||0,
+    kendala: document.getElementById('kendala').value.trim()
+  };
+
+  // Tampilkan loading
+  const btn = document.getElementById('btn-kirim');
+  btn.classList.add('loading'); btn.disabled = true;
+  document.getElementById('err-banner').classList.remove('show');
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(rec)
+    });
+    const json = await res.json();
+    if(json.status === 'ok'){
+      document.getElementById('ref-no').textContent = rec.ref;
+      document.getElementById('form-section').style.display = 'none';
+      document.getElementById('success-screen').classList.add('show');
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else {
+      throw new Error(json.message || 'Unknown error');
+    }
+  } catch(err){
+    document.getElementById('err-banner').classList.add('show');
+    console.error(err);
+  } finally {
+    btn.classList.remove('loading'); btn.disabled = false;
+  }
+}
+
+function resetForm(){
+  document.getElementById('smkForm').reset();
+  const lkEl = document.getElementById('lk-prod');
+  lkEl.removeAttribute('readonly');
+  lkEl.value = '';
+  lkEl.setAttribute('readonly', true);
+  lkEl.style.background = '#f5f0e8';
+  document.getElementById('lokasi-lain').style.display = 'none';
+  document.getElementById('err-banner').classList.remove('show');
+  document.getElementById('success-screen').classList.remove('show');
+  document.getElementById('form-section').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ── LOGIN ADMIN ──
+function openLogin(){
+  document.getElementById('pw-input').value='';
+  document.getElementById('login-err').textContent='';
+  document.getElementById('login-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('pw-input').focus(),100);
+}
+function closeLogin(){ document.getElementById('login-overlay').classList.remove('show'); }
+function doLogin(){
+  if(document.getElementById('pw-input').value === ADMIN_PW){
+    closeLogin();
+    document.getElementById('user-view').style.display='none';
+    document.getElementById('admin-panel').classList.add('show');
+    loadAdminData();
+  } else {
+    document.getElementById('login-err').textContent='❌ Kata sandi salah.';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+function logout(){
+  adminData=[];
+  document.getElementById('admin-panel').classList.remove('show');
+  document.getElementById('user-view').style.display='block';
+  window.scrollTo({top:0});
+}
+
+// ── LOAD DATA DARI SHEETS ──
+let adminData = [];
+async function loadAdminData(){
+  document.getElementById('tbl-body').innerHTML='<tr><td colspan="12"><div class="loading-data">⏳ Mengambil data dari Google Sheets...</div></td></tr>';
+  document.getElementById('admin-sub').textContent='Memuat...';
+  try {
+    const res  = await fetch(`${SCRIPT_URL}?key=${ADMIN_KEY}&t=${Date.now()}`);
+    const json = await res.json();
+    if(json.status==='ok'){
+      // Map dari header Google Sheets ke field JS
+      adminData = json.data.map(r=>({
+        ref:      r['Referensi']||r['Ref']||'',
+        ts:       r['Tanggal Input']||'',
+        prodiakon:r['Nama Prodiakon']||'',
+        wilProd:  r['Wilayah Prodiakon']||'',
+        lkProd:   r['Lingkungan Prodiakon']||'',
+        namaUmat: r['Nama Umat / Lansia']||'',
+        wilUmat:  r['Wilayah Umat']||'',
+        lkUmat:   r['Lingkungan Umat']||'',
+        lokasi:   r['Lokasi SMK']||'',
+        namaKel:  r['Nama Keluarga']||'',
+        jmlSMK:   Number(r['Jumlah SMK'])||0,
+        kendala:  r['Kendala']||''
+      }));
+      renderTable();
+      showToast('✅ Data berhasil dimuat — '+adminData.length+' entri');
+    } else {
+      throw new Error(json.status);
+    }
+  } catch(err){
+    document.getElementById('tbl-body').innerHTML='<tr><td colspan="12"><div class="loading-data" style="color:#c53030">❌ Gagal memuat data. Periksa koneksi atau URL Apps Script.<br><small>'+err+'</small></div></td></tr>';
+    document.getElementById('admin-sub').textContent='Gagal memuat data';
+  }
+}
+
+// ── RENDER TABLE ──
+let curPage=1; const PS=15;
+function renderTable(){
+  const q=(document.getElementById('search-input').value||'').toLowerCase();
+  const fil=adminData.filter(r=>[r.prodiakon,r.wilProd,r.lkProd,r.namaUmat,r.wilUmat,r.lkUmat,r.lokasi,r.namaKel].join(' ').toLowerCase().includes(q));
+  const totSMK=adminData.reduce((s,r)=>s+r.jmlSMK,0);
+  const wils=[...new Set(adminData.map(r=>r.wilProd))].length;
+  document.getElementById('stats-row').innerHTML=
+    `<div class="stat-box"><div class="stat-num">${adminData.length}</div><div class="stat-lbl">Total Data</div></div>
+     <div class="stat-box"><div class="stat-num">${totSMK}</div><div class="stat-lbl">Total SMK</div></div>
+     <div class="stat-box"><div class="stat-num">${wils}</div><div class="stat-lbl">Wilayah Aktif</div></div>
+     <div class="stat-box"><div class="stat-num">${fil.length}</div><div class="stat-lbl">Hasil Cari</div></div>`;
+  document.getElementById('admin-sub').textContent='Paroki Bintaro 2026 — '+adminData.length+' entri dari Google Sheets';
+  const tbody=document.getElementById('tbl-body');
+  const nd=document.getElementById('no-data');
+  if(!fil.length){ tbody.innerHTML=''; nd.style.display='block'; document.getElementById('pg-info').textContent=''; document.getElementById('pg-btns').innerHTML=''; return; }
+  nd.style.display='none';
+  const tp=Math.ceil(fil.length/PS); if(curPage>tp) curPage=1;
+  const st=(curPage-1)*PS; const sl=fil.slice(st,st+PS);
+  tbody.innerHTML=sl.map((r,i)=>{
+    const bc=r.lokasi.includes('Panti')?'badge-panti':r.lokasi.includes('Sakit')?'badge-rs':r.lokasi.includes('Tinggal')?'badge-rumah':'badge-lain';
+    return `<tr>
+      <td style="color:#aaa;font-size:12px;">${st+i+1}</td>
+      <td style="font-size:11px;color:var(--gold);font-weight:700;">${r.ref}</td>
+      <td style="font-size:11.5px;color:#6b7494;white-space:nowrap;">${r.ts}</td>
+      <td style="font-weight:600;">${r.prodiakon}</td>
+      <td style="white-space:nowrap;">${r.wilProd}</td>
+      <td>${r.lkProd}</td>
+      <td style="font-weight:600;color:var(--mid);">${r.namaUmat}</td>
+      <td style="white-space:nowrap;">${r.wilUmat}</td>
+      <td>${r.lkUmat}</td>
+      <td><span class="badge ${bc}">${r.lokasi}</span></td>
+      <td style="text-align:center;font-weight:700;color:var(--navy);">${r.jmlSMK}</td>
+      <td><button class="btn-det" onclick="showDetail(${st+i})">Detail</button></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('pg-info').textContent=`${st+1}–${Math.min(st+PS,fil.length)} dari ${fil.length} entri`;
+  document.getElementById('pg-btns').innerHTML=
+    `<button class="pg-btn" onclick="goPage(${curPage-1})" ${curPage===1?'disabled':''}>‹</button>`+
+    Array.from({length:tp},(_,i)=>`<button class="pg-btn ${i+1===curPage?'cur':''}" onclick="goPage(${i+1})">${i+1}</button>`).join('')+
+    `<button class="pg-btn" onclick="goPage(${curPage+1})" ${curPage===tp?'disabled':''}>›</button>`;
+}
+function goPage(n){ curPage=n; renderTable(); document.querySelector('.admin-topbar').scrollIntoView({behavior:'smooth'}); }
+
+// ── DETAIL ──
+function showDetail(idx){
+  const q=(document.getElementById('search-input').value||'').toLowerCase();
+  const fil=adminData.filter(r=>[r.prodiakon,r.wilProd,r.lkProd,r.namaUmat,r.wilUmat,r.lkUmat,r.lokasi,r.namaKel].join(' ').toLowerCase().includes(q));
+  const r=fil[idx]; if(!r) return;
+  document.getElementById('modal-box').innerHTML=
+    `<h3>✝ Detail Penerimaan SMK</h3>
+     <div class="mrow"><span class="ml">No. Referensi</span><span class="mv" style="font-weight:700;color:var(--gold)">${r.ref}</span></div>
+     <div class="mrow"><span class="ml">Prodiakon</span><span class="mv">${r.prodiakon}</span></div>
+     <div class="mrow"><span class="ml">Wilayah Prodiakon</span><span class="mv">${r.wilProd}</span></div>
+     <div class="mrow"><span class="ml">Lingkungan Prodiakon</span><span class="mv">${r.lkProd}</span></div>
+     <div class="mrow"><span class="ml">Nama Umat / Lansia</span><span class="mv">${r.namaUmat}</span></div>
+     <div class="mrow"><span class="ml">Wilayah Umat</span><span class="mv">${r.wilUmat}</span></div>
+     <div class="mrow"><span class="ml">Lingkungan Umat</span><span class="mv">${r.lkUmat}</span></div>
+     <div class="mrow"><span class="ml">Lokasi SMK</span><span class="mv">${r.lokasi}</span></div>
+     <div class="mrow"><span class="ml">Nama Keluarga</span><span class="mv">${r.namaKel}</span></div>
+     <div class="mrow"><span class="ml">Jumlah SMK</span><span class="mv" style="font-weight:700;color:var(--navy)">${r.jmlSMK} SMK</span></div>
+     <div class="mrow"><span class="ml">Kendala</span><span class="mv">${r.kendala||'—'}</span></div>
+     <div class="mts">📅 Diinput: ${r.ts}</div>
+     <button class="modal-close" onclick="closeModal()">Tutup</button>`;
+  document.getElementById('modal-bg').classList.add('show');
+}
+function closeModal(){ document.getElementById('modal-bg').classList.remove('show'); }
+function closeConfirm(){ document.getElementById('confirm-bg').classList.remove('show'); }
+
+// ── EXPORT CSV ──
+function exportCSV(){
+  if(!adminData.length){ alert('Tidak ada data.'); return; }
+  const e=v=>'"'+String(v||'').replace(/"/g,'""')+'"';
+  const hdr=['No','Referensi','Tgl Input','Nama Prodiakon','Wilayah Prodiakon','Lingkungan Prodiakon','Nama Umat/Lansia','Wilayah Umat','Lingkungan Umat','Lokasi SMK','Nama Keluarga','Jumlah SMK','Kendala'].map(e).join(',');
+  const rows=adminData.map((r,i)=>[i+1,r.ref,r.ts,r.prodiakon,r.wilProd,r.lkProd,r.namaUmat,r.wilUmat,r.lkUmat,r.lokasi,r.namaKel,r.jmlSMK,r.kendala].map(e).join(','));
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob(['\uFEFF'+[hdr,...rows].join('\r\n')],{type:'text/csv;charset=utf-8;'}));
+  a.download='SMK_Paroki_Bintaro_2026_'+new Date().toLocaleDateString('id-ID').replace(/\//g,'-')+'.csv';
+  a.click();
+}
+
+// ── TOAST ──
+let tt;
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),3000); }
+</script>
+</body>
+</html>
